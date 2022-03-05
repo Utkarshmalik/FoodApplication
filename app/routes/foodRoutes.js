@@ -5,13 +5,15 @@ const foodControllors=require( path.join(__dirname,"../Controllers/foodControlle
 const foodModel=require(path.join(__dirname,'../models/food'));
 const app=express();
 
+const authMiddleWare=require('../middlewares/authMiddleware');
 
 
-app.get("/foods",foodControllors.findAll);
-app.get("/food/:id",foodControllors.findOne);
-app.post("/food",foodControllors.create);
-app.patch("/food/:id",foodControllors.update);
-app.delete("/food/:id",foodControllors.delete);
+
+app.get("/foods",authMiddleWare,foodControllors.findAll);
+app.get("/food/:id",authMiddleWare,foodControllors.findOne);
+app.post("/food",authMiddleWare,foodControllors.create);
+app.patch("/food/:id",authMiddleWare,foodControllors.update);
+app.delete("/food/:id",authMiddleWare,foodControllors.delete);
 
 
 

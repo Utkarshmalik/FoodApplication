@@ -4,11 +4,13 @@ const mongoose= require('mongoose');
 const path=require('path');
 const cors=require('cors');
 const foodRouter=require(path.join(__dirname,'./app/routes/foodRoutes'));
+const authRouter=require(path.join(__dirname,'./app/routes/authRoutes'));
+
 const app=express();
 
 
 
-mongoose.connect(process.env.MONGODBURL || "mongodb+srv://utmalik:qwerty123@cluster0.8r1bi.mongodb.net/foodDB?retryWrites=true&w=majority");
+mongoose.connect(process.env.MONGODBURL || "mongodb://localhost:27017/foodDB");
 
 //cors 
 app.use(cors({
@@ -34,6 +36,8 @@ app.use(bodyParser.json())
 
 
 app.use(foodRouter);
+
+app.use(authRouter);
 
 
 app.listen( process.env.PORT || 3000,()=>{

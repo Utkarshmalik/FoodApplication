@@ -4,6 +4,10 @@ const foodModel=require(path.join(__dirname,"../models/food"));
 
 exports.findAll=(req,res)=>{
 
+    // if(!req.user){
+    //     res.status(403).send({message:"Invalid JWT token"});
+    // }
+
     foodModel.find({}).then((foods)=>{
         res.send(foods);
     }).catch(()=>{
