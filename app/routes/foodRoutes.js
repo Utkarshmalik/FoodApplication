@@ -6,15 +6,15 @@ const foodModel=require(path.join(__dirname,'../models/food'));
 const app=express();
 
 const authMiddleWare=require('../middlewares/authMiddleware');
+const adminMiddleWare=require('../middlewares/adminMiddleWare');
 
+app.use(authMiddleWare);
 
-
-app.get("/foods",authMiddleWare,foodControllors.findAll);
-app.get("/food/:id",authMiddleWare,foodControllors.findOne);
-app.post("/food",authMiddleWare,foodControllors.create);
-app.patch("/food/:id",authMiddleWare,foodControllors.update);
-app.delete("/food/:id",authMiddleWare,foodControllors.delete);
-
+app.get("/foods",foodControllors.findAll);
+app.get("/food/:id",foodControllors.findOne);
+app.post("/food",adminMiddleWare,foodControllors.create);
+app.patch("/food/:id",adminMiddleWare,foodControllors.update);
+app.delete("/food/:id",adminMiddleWare,foodControllors.delete);
 
 
 module.exports=app;
