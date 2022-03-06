@@ -4,11 +4,12 @@ const foodModel=require(path.join(__dirname,"../models/food"));
 
 exports.findAll=(req,res)=>{
 
-    // if(!req.user){
-    //     res.status(403).send({message:"Invalid JWT token"});
-    // }
+    const pageSize= req.query.pageSize ? parseInt(req.query.pageSize) :0;
+    const page=req.query.page ? parseInt(req.query.page) :0;
+    const calories=req.query.calories ? parseInt(req.query.calories):0;
 
-    foodModel.find({}).then((foods)=>{
+    foodModel.find({ calories: { $gte: calories}}).skip(page * pageSize).sort({name:1}).
+    limit(pageSize).then((foods)=>{
         res.send(foods);
     }).catch(()=>{
         res.status(500).send(err);

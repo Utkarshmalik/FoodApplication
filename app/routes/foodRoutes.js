@@ -12,10 +12,9 @@ app.use(authMiddleWare);
 
 app.get("/foods",foodControllors.findAll);
 app.get("/food/:id",foodControllors.findOne);
-app.post("/food",adminMiddleWare,foodControllors.create);
+app.post("/food",foodControllors.create);
 app.patch("/food/:id",adminMiddleWare,foodControllors.update);
 app.delete("/food/:id",adminMiddleWare,foodControllors.delete);
-
 
 module.exports=app;
 
